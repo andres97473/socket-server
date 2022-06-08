@@ -50,4 +50,19 @@ router.post("/mensajes/:id", (req: Request, res: Response) => {
   });
 });
 
+// obtener todos los ids de los usuarios
+router.get("/usuarios", (req: Request, res: Response) => {
+  const server = Server.instance;
+
+  let clientes: any[] = [];
+
+  server.io.sockets.sockets.forEach((socket) => {
+    clientes.push(socket.id);
+  });
+  res.json({
+    ok: true,
+    clientes,
+  });
+});
+
 export default router;
